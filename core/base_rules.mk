@@ -57,12 +57,8 @@ endif
 
 LOCAL_MODULE_TAGS := $(sort $(LOCAL_MODULE_TAGS))
 ifeq (,$(LOCAL_MODULE_TAGS))
-ifeq (true,$(LOCAL_UNINSTALLABLE_MODULE))
-LOCAL_MODULE_TAGS := optional
-else
-# Installable modules without tags fall back to user (which is changed to user eng below)
+# Modules without tags fall back to user (which is changed to user eng below)
 LOCAL_MODULE_TAGS := user
-endif
 #$(warning default tags: $(lastword $(filter-out config/% out/%,$(MAKEFILE_LIST))))
 endif
 

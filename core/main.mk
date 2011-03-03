@@ -450,8 +450,6 @@ ifeq ($(BUILD_TINY_ANDROID), true)
 subdirs := \
 	bionic \
 	system/core \
-	system/extras/ext4_utils \
-	system/extras/su \
 	build/libs \
 	build/target \
 	build/tools/acp \

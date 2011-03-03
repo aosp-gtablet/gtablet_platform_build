@@ -55,6 +55,7 @@ GRANDFATHERED_USER_MODULES += \
 	audio \
 	badblocks \
 	badblocks_host \
+	bash \
 	bb2sym \
 	bb_dump \
 	bbprof \
@@ -64,6 +65,7 @@ GRANDFATHERED_USER_MODULES += \
 	bootanimation \
 	brcm_patchram_plus \
 	bugreport \
+	busybox \
 	cfassembler \
 	check_stack \
 	check_trace \
@@ -194,6 +196,7 @@ GRANDFATHERED_USER_MODULES += \
 	libbluetoothd \
 	libbuiltinplugin \
 	libbundlewrapper \
+	libbusybox \
 	libbz \
 	libc \
 	libcamera_client \
@@ -202,6 +205,7 @@ GRANDFATHERED_USER_MODULES += \
 	libc_common \
 	libchromium_net \
 	libc_nomalloc \
+	libclearsilverregex \
 	libctest \
 	libcutils \
 	libdb \
@@ -496,6 +500,7 @@ GRANDFATHERED_USER_MODULES += \
 	tuttle2.kcm \
 	uix \
 	usbtest \
+	utility_busybox \
 	vdc \
 	vm-tests \
 	vold \

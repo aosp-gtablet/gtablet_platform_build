@@ -41,7 +41,7 @@ ifeq "" "$(PLATFORM_VERSION)"
   # which is the version that we reveal to the end user.
   # Update this value when the platform version changes (rather
   # than overriding it somewhere else).  Can be an arbitrary string.
-  PLATFORM_VERSION := AOSP
+  PLATFORM_VERSION := 2.3.3_r1
 endif
 
 ifeq "" "$(PLATFORM_SDK_VERSION)"
@@ -53,7 +53,7 @@ ifeq "" "$(PLATFORM_SDK_VERSION)"
   # intermediate builds).  During development, this number remains at the
   # SDK version the branch is based on and PLATFORM_VERSION_CODENAME holds
   # the code-name of the new development work.
-  PLATFORM_SDK_VERSION := 10
+  PLATFORM_SDK_VERSION := 9
 endif
 
 ifeq "" "$(PLATFORM_VERSION_CODENAME)"
@@ -81,7 +81,7 @@ ifeq "" "$(BUILD_ID)"
   # word and a valid file name.
   #
   # If there is no BUILD_ID set, make it obvious.
-  BUILD_ID := UNKNOWN
+  BUILD_ID := AOSP-GTABLET
 endif
 
 ifeq "" "$(BUILD_NUMBER)"
@@ -96,3 +96,4 @@ ifeq "" "$(BUILD_NUMBER)"
   # anyone trying to parse it as an integer will probably get "0".
   BUILD_NUMBER := eng.$(USER).$(shell date +%Y%m%d.%H%M%S)
 endif
+

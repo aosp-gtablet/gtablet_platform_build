@@ -9,6 +9,7 @@ Invoke ". build/envsetup.sh" from your shell to add the following functions to y
 - jgrep:   Greps on all local Java files.
 - resgrep: Greps on all local res/*.xml files.
 - godir:   Go to the directory containing a file.
+- mka:     Builds using SCHED_BATCH on all processors
 
 Look at the source to view more functions. The complete list is:
 EOF
@@ -1082,13 +1083,15 @@ function set_java_home() {
     fi
 }
 
-case `ps -o command -p $$` in
-    *bash*)
-        ;;
-    *)
-        echo "WARNING: Only bash is supported, use of other shell would lead to erroneous results"
-        ;;
-esac
+# determine whether arrays are zero-based (bash) or one-based (zsh)
+_xarray=(a b c)
+if [ -z "${_xarray[${#_xarray[@]}]}" ]
+then
+    _arrayoffset=1
+else
+    _arrayoffset=0
+fi
+unset _xarray
 
 # Execute the contents of any vendorsetup.sh files we can find.
 for f in `/bin/ls vendor/*/vendorsetup.sh vendor/*/*/vendorsetup.sh device/*/*/vendorsetup.sh 2> /dev/null`
