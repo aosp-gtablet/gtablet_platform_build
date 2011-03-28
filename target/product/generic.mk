@@ -31,7 +31,6 @@ PRODUCT_PACKAGES := \
     Gallery3D \
     LatinIME \
     Launcher2 \
-    Mms \
     Music \
     Provision \
     Protips \
