@@ -772,6 +772,7 @@ ifneq ($(filter sdk win_sdk,$(MAKECMDGOALS)),)
 $(call dist-for-goals,sdk win_sdk, \
 	$(ALL_SDK_TARGETS) \
 	$(SYMBOLS_ZIP) \
+	$(INSTALLED_BUILD_PROP_TARGET) \
  )
 endif
 
