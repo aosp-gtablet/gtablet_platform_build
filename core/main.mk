@@ -12,6 +12,13 @@ endif
 # this turns off the suffix rules built into make
 .SUFFIXES:
 
+# this turns off the RCS / SCCS implicit rules of GNU Make
+% : RCS/%,v
+% : RCS/%
+% : %,v
+% : s.%
+% : SCCS/s.%
+
 # If a rule fails, delete $@.
 .DELETE_ON_ERROR:
 
@@ -69,17 +76,6 @@ VERSION_CHECK_SEQUENCE_NUMBER := 2
 ifneq ($(VERSION_CHECK_SEQUENCE_NUMBER),$(VERSIONS_CHECKED))
 
 $(info Checking build tools versions...)
-
-ifeq ($(BUILD_OS),linux)
-build_arch := $(shell uname -m)
-ifneq (64,$(findstring 64,$(build_arch)))
-$(warning ************************************************************)
-$(warning You are attempting to build on a 32-bit system.)
-$(warning Only 64-bit build environments are supported beyond froyo/2.2.)
-$(warning ************************************************************)
-$(error stop)
-endif
-endif
 
 ifneq ($(HOST_OS),windows)
 ifneq ($(HOST_OS)-$(HOST_ARCH),darwin-ppc)
@@ -445,7 +441,7 @@ endif
 else	# !SDK_ONLY
 ifeq ($(BUILD_TINY_ANDROID), true)
 
-# TINY_ANDROID is a super-minimal build configuration, handy for board 
+# TINY_ANDROID is a super-minimal build configuration, handy for board
 # bringup and very low level debugging
 
 subdirs := \

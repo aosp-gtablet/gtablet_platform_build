@@ -106,8 +106,8 @@ TARGET_COMPRESS_MODULE_SYMBOLS := false
 # Default is to prelink modules.
 TARGET_PRELINK_MODULE := true
 
-# Default shell is ash. Other possible value is mksh.
-TARGET_SHELL := ash
+# Default shell is mksh. Other possible value is ash.
+TARGET_SHELL := mksh
 
 # ###############################################################
 # Include sub-configuration files
@@ -270,6 +270,12 @@ ifeq ($(HOST_OS),darwin)
 HOST_JDK_TOOLS_JAR :=
 else
 HOST_JDK_TOOLS_JAR:= $(shell $(BUILD_SYSTEM)/find-jdk-tools-jar.sh)
+endif
+
+# Is the host JDK 64-bit version?
+HOST_JDK_IS_64BIT_VERSION :=
+ifneq ($(filter 64-Bit, $(shell java -version 2>&1)),)
+HOST_JDK_IS_64BIT_VERSION := true
 endif
 
 # It's called md5 on Mac OS and md5sum on Linux

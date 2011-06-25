@@ -96,18 +96,27 @@ function setpaths()
     #                                                                #
     ##################################################################
 
+    # Note: on windows/cygwin, ANDROID_BUILD_PATHS will contain spaces
+    # due to "C:\Program Files" being in the path.
+
     # out with the old
-    if [ -n $ANDROID_BUILD_PATHS ] ; then
+    if [ -n "$ANDROID_BUILD_PATHS" ] ; then
         export PATH=${PATH/$ANDROID_BUILD_PATHS/}
     fi
-    if [ -n $ANDROID_PRE_BUILD_PATHS ] ; then
+    if [ -n "$ANDROID_PRE_BUILD_PATHS" ] ; then
         export PATH=${PATH/$ANDROID_PRE_BUILD_PATHS/}
     fi
 
     # and in with the new
     CODE_REVIEWS=
     prebuiltdir=$(getprebuilt)
-    export ANDROID_EABI_TOOLCHAIN=$prebuiltdir/toolchain/arm-eabi-4.4.3/bin
+    toolchaindir=toolchain/arm-eabi-4.4.3/bin
+    # The gcc toolchain does not exists for windows/cygwin. In this case, do not reference it.
+    if [ -d "$prebuiltdir/$toolchaindir" ]; then
+        export ANDROID_EABI_TOOLCHAIN=$prebuiltdir/$toolchaindir
+    else
+        export ANDROID_EABI_TOOLCHAIN=
+    fi
     export ANDROID_TOOLCHAIN=$ANDROID_EABI_TOOLCHAIN
     export ANDROID_QTOOLS=$T/development/emulator/qtools
     export ANDROID_BUILD_PATHS=:$(get_build_var ANDROID_BUILD_PATHS):$ANDROID_QTOOLS:$ANDROID_TOOLCHAIN:$ANDROID_EABI_TOOLCHAIN$CODE_REVIEWS
@@ -1078,15 +1087,15 @@ function set_java_home() {
     fi
 }
 
-# determine whether arrays are zero-based (bash) or one-based (zsh)
-_xarray=(a b c)
-if [ -z "${_xarray[${#_xarray[@]}]}" ]
-then
-    _arrayoffset=1
-else
-    _arrayoffset=0
+if [ "x$SHELL" != "x/bin/bash" ]; then
+    case `ps -o command -p $$` in
+        *bash*)
+            ;;
+        *)
+            echo "WARNING: Only bash is supported, use of other shell would lead to erroneous results"
+            ;;
+    esac
 fi
-unset _xarray
 
 # Execute the contents of any vendorsetup.sh files we can find.
 for f in `/bin/ls vendor/*/vendorsetup.sh vendor/*/*/vendorsetup.sh device/*/*/vendorsetup.sh 2> /dev/null`
