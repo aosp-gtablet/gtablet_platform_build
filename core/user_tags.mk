@@ -376,6 +376,8 @@ GRANDFATHERED_USER_MODULES += \
 	libvpx \
 	libwebcore \
 	libwpa_client \
+	libwebp-decode \
+	libwebp-encode \
 	libwrapsim \
 	libxml2 \
 	libxslt \
